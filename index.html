@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>HireFree - Register</title>
+    <link rel="stylesheet" href="style.css">
+
+    
+  </head>
+  <body>
+    
+    
+    <section class="container">
+      <header><h1> HireFree</h1><h6>Find real talent for your company here!</h6><br>Company Registration</header>
+      <form action="" class="form" id="contactForm">
+        <div class="input-box">
+          <label>Name of Organisation</label>
+          <input type="text" id="name" placeholder="Enter Full Name" required />
+        </div>
+
+        <div class="input-box">
+          <label>Organisation's email address</label>
+          <input type="text" id="email" placeholder="Don't worry! We won't spam." required />
+        </div>
+
+        <div class="column">
+          <div class="input-box">
+            <label>Contact Number</label>
+            <input type="tel" id="phone" placeholder="Enter Contact Number" required />
+          </div>
+          
+          
+        </div>
+        <div> 
+            <div class="input-box">
+                <div class="select-box">
+                    <label></label>
+                    <select id="position">
+                      <option hidden>Hiring(Name of Position)</option>
+                      <option>Software Engineer</option>
+                      <option>Product Manager</option>
+                      <option>Data Scientist</option>
+                      
+                    </select>
+                  </div>
+                
+              </div>
+              <div class="input-box">
+                <div class="select-box">
+                    <label></label>
+                    <select id="location">
+                      <option hidden>Location of Work</option>
+                      <option>Northern India</option>
+                      <option>Southern India</option>
+                      <option>Eastern India</option>
+                      <option>Western India</option>
+                      <option>Oustside India</option>
+                      <option>Remote(WFH)</option>
+                    </select>
+                  </div>
+              </div>
+        </div>
+      <div class="input-box">
+        <button type="submit" class="submit-btn" onclick="auth()" >Search Talent</button>      
+      </div>  
+      </form>
+      <script src="https://www.gstatic.com/firebasejs/3.7.4/firebase.js">
+      </script>
+    </section>
+    <script>
+      function auth(){
+        var position = document.getElementById("position").value;
+        if (position== "Software Engineer"){
+          window.location.assign("se.html");
+          alert("Registration Successful!")
+        }
+        if (position== "Product Manager"){
+          window.location.assign("pm.html");
+          alert("Registration Successful!")
+        }
+        if (position== "Data Scientist"){
+          window.location.assign("ds.html");
+          alert("Registration Successful!")
+        }
+      }
+    </script>
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyA3x47SkhZ7OK6Ym3zg6Fs4lRMUBPOFMvs",
+        authDomain: "sampleproject-e9bc4.firebaseapp.com",
+        databaseURL: "https://console.firebase.google.com/u/0/project/sampleproject-e9bc4/database/sampleproject-e9bc4-default-rtdb/data/~2F",
+        projectId: "sampleproject-e9bc4",
+        storageBucket: "sampleproject-e9bc4.appspot.com",
+        messagingSenderId: "557676738855",
+        appId: "1:557676738855:web:948273e0c583478fc85102",
+        measurementId: "G-CELMQDHT16"
+      };
+
+  // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+
+      var messagesRef = firebase.database().ref('Collected Data');
+      document.getElementById('contactForm').addEventListener('submit', submitForm);
+      function submitForm(e) {
+            e.preventDefault();
+            var name = getInputVal('name');
+            var email = getInputVal('email');
+            var email = getInputVal('phone');
+            var email = getInputVal('position');
+            var email = getInputVal('location');
+            
+ 
+            saveMessage(name, email, position);
+            document.getElementById('contactForm').reset();
+        }
+ 
+        // Function to get form values
+      function getInputVal(id) {
+            return document.getElementById(id).value;
+        }
+ 
+        // Save message to firebase
+      function saveMessage(name, email, phone, position, location) {
+            var newMessageRef = messagesRef.push();
+            newMessageRef.set({
+                name: name,
+                email: email,
+                phone: phone,
+                
+            });
+        }
+    </script>
+</body>
+</html>
